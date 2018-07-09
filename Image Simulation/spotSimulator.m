@@ -1,18 +1,18 @@
 %% Initialise
-noSpots=1;
-Isingle=4000;
+noSpots=10;
+Isingle=10000;
 BGmean=500; %mean background pixel intensity
 BGstd=120; %standard deviation of background pixels
-noFrames=5000;
+noFrames=100;
 sizeN=50;
 sizeM=50;
 bleachTime=10; %in frames, if 0 then no bleaching
-diffusionCoeff=0;%um2/s
+diffusionCoeff=1;%um2/s
 nDiffPoints=4; %number of MSD points to calculate diffusion const
 frameTime=0.005; %seconds
 pixelSize=0.120; %um
 PSFwidth=0.160/pixelSize; %sigma of a Gaussian, ~2/3 airy disk diameter
-fileName='test.tif';
+fileName='tdiffusingSpots.tif';
 %make a spot array the same size as normal
 spotsReal=zeros(noSpots*noFrames,12);
 spotsReal(:,5)=Isingle;
@@ -67,7 +67,7 @@ end
 createP
 p.show_output=0;
 
-[SpotsCh1, ~, ~,~, ~, ~,~] = ADEMScode2_84(GaussFrame,p);
+[SpotsCh1, ~, ~,~, ~, ~,~] = tracker(GaussFrame,p);
 
 for t=1:max(SpotsCh1(:,10))
     if sum(SpotsCh1(:,10)==t)>=nDiffPoints
