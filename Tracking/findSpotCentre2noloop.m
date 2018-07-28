@@ -3,10 +3,6 @@ function [x_centre, y_centre, clipping_flag, Ibg_avg, Isp, Idata, bg_noise_std, 
 % 
 % Will return initial values if NO CONVERGE
 %
-% Created by Isabel Llorente-Garcia, (2011) with a little help from Adam
-% Wollman in 2014
-% If you use this code please acknowledge Isabel Llorente-Garcia in your
-% publications.
 %
 % Function to iteratively find the centre of a fluorescence spot on an image.
 % 
