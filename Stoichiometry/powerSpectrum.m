@@ -1,6 +1,6 @@
 function [Istep_axis, power_spectrum]=powerSpectrum(filteredI,stepSize, showOutput)
 PwD=pdist(filteredI);
-(counts)=histcounts(PwD,0:stepSize:max(PwD));
+counts=histcounts(PwD,0:stepSize:max(PwD));
 x=0:stepSize:max(PwD);
 binCentres=x;
 freqCounts=counts;
