@@ -4,7 +4,7 @@ The tracking software consists of a series of functions for opening data and tra
 
 ## Input
 
-The filename (or folder name for unstacked tiffs), either without the file extention or if using the bioformats plugin with extention.
+The filename (or folder name for unstacked tiffs), either without the file extention or if using the bioformats plugin with extention. p is the parameter structure which can be read in or set by the code.
 
 ## Output
 
@@ -24,7 +24,8 @@ SpotsCh1/2 is an array, each row contains the information for a spot found in an
 
 Useful to know: There is a ‘show_output’ option that can be used to view graphs and manually advance at each stage of the algorithm.
 Cursor_mode: set =1 and user can manually specify where spots are. The code will return intensity values at this point over the whole time series.
-tracker: This is the main tracking program and is a function of image_label, readData=1 to extract tif or 0 if data preloaded then runs on image_label, p is the parameter structure which can be read in or set by the code. It returns spot arrays for each channel and frame_average. It uses:
+
+*tracker:* This is the main tracking program and is a function of fielName, either a string containing the file name or an image array containing the data,  It returns spot arrays for each channel and frame_average. It uses:
 
 *extractImageSequence3:* extracts user set frames from tif specified by image_label, can open Andor ASCII files and folders full of tif frames
 
