@@ -1,10 +1,12 @@
 # Tracking
 
-The tracking software consists of a series of functions for opening data and tracking particles.
+The tracking software consists of a series of functions for opening data, tracking bright particles over time and quantifying their intensity.
+
+'[SpotsCh1, SpotsCh2, frame_average,p, meta_data, image_data,spotImages] = tracker(fileName,p)'
 
 ## Input
 
-The filename (or folder name for unstacked tiffs), either without the file extention or if using the bioformats plugin with extention. p is the parameter structure which can be read in or set by the code.
+The filename (or folder name for unstacked tiffs), either without the file extention or if using the bioformats plugin with extention. p is the parameter structure which can be read in or set by the code. Can be created using 'createP'
 
 ## Output
 
