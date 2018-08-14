@@ -1,6 +1,6 @@
 # Simulation
 
-Simulate diffusing and photobleaching PSFs with 'spotSimulator' or generate a model image of simple cell shaped objects with 3Dshapes.
+Simulate diffusing and photobleaching PSFs with `spotSimulator` or generate a model image of simple cell shaped objects with 3Dshapes.
 
 ## 3D shapes
 

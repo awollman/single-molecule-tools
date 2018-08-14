@@ -14,10 +14,7 @@ stoichMethod=params.stoichMethod;
 bleachTime=params.bleachTime;
 spotsInTracks=[];
 
-
-
-cellCoord=[];
-
+ [cellCoord(:,2), cellCoord(:,1)]=find(segmentedCell);
 spotInd=ismember(round(spots(:,1:2)),cellCoord,'rows');
 trajNo=unique(spots(spotInd,10));
 trajNo(trajNo==0)=[];

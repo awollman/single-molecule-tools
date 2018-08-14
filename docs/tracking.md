@@ -2,7 +2,7 @@
 
 The tracking software consists of a series of functions for opening data, tracking bright particles over time and quantifying their intensity.
 
-'[SpotsCh1, SpotsCh2, frame_average,p, meta_data, image_data,spotImages] = tracker(fileName,p)'
+`[SpotsCh1, SpotsCh2, frame_average,p, meta_data, image_data,spotImages] = tracker(fileName,p)`
 
 ## Input
 

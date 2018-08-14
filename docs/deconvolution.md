@@ -1,4 +1,4 @@
-# Deconvolution
+# Copy number
 
 Follow this guide to deconvolute single-molecule images into actual copy numbers of fluorescent molecules.
 
@@ -6,4 +6,9 @@ This works by generating a simulated image (or images) of the fluorescent object
 
 ## Point Spread function
 
-Generate a measured or simulated PSF. This [code](https://uk.mathworks.com/matlabcentral/fileexchange/31945-widefield-fluorescence-microscope-point-spread-function) will generate a good PSF. Make sure each Z-plane is normalised to unitary intensity and the PSF array is the same size or larger than the image in all 3D.
+Generate a measured or simulated PSF. This [code](https://uk.mathworks.com/matlabcentral/fileexchange/31945-widefield-fluorescence-microscope-point-spread-function) will generate a good PSF. Make sure each Z-plane is normalised to unitary intensity and you simulate enough z-planes for your 3D object.
+
+## Simulate shape
+[This folder](../Image Simulation/3Dshapes) contains many functions for simulating shapes like spheres, shells and cylinders and combining them to create more complicated shapes like rod shaped bacterial cells.
+
+## Single compartment copy number

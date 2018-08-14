@@ -1,6 +1,6 @@
 # Single molecule tools
 
-A series of Matlab functions and scripts for [tracking](tracking.md) and quantification of spots in images, [deconvolution](deconvolution.md), [segmentation](segmentation.md) and [simulation](simulation.md).
+A series of Matlab functions and scripts for [tracking](tracking.md) and quantification of spots in images, [Copy Number deconvolution](deconvolution.md), [segmentation](segmentation.md) and [simulation](simulation.md).
 
 Useful for analysing localisation microscopy, step-wise photobleaching  , STORM, PALM, SHRIMP, FRAP and regular fluorescence microscopy data.
 

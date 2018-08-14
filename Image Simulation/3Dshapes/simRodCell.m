@@ -1,11 +1,11 @@
-function projection_image=simRodCellShell(radius, lengthVar, realCenter, orientation,psf,sizeImage)
+function projection_image=simRodCell(radius, lengthVar, realCenter, orientation,psf,sizeImage)
 
 Center=[sizeImage(2)/2,sizeImage(1)/2];
 projection_imageCylinder=simCylinder(radius, lengthVar, Center, psf,sizeImage);
-Center1=Center;
-Center1(2)=Center(2)-lengthVar;
+% Center1=Center;
+% Center1(2)=Center(2)-lengthVar;
 projection_imageSphere1=simHalfSphere(radius, Center, psf, size(projection_imageCylinder));
-sphereShift=circshift(projection_imageSphere1,[-lengthVar/2,0]);
+sphereShift=circshift(projection_imageSphere1,round([-lengthVar/2,0]));
 
 %projection_imageSphere1=zeros(size(projection_imageCylinder));
 projection_imageTemp=projection_imageCylinder+sphereShift+circshift(flipud(sphereShift),[1,0]);
