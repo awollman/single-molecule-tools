@@ -109,8 +109,9 @@ if  params.method==1
 N_nuc_pool=N_nuc_poolTemp;
     
 else % pin the total copy number to the summed intensity corrected for diffraction
-totalProj=sum(cyto_projection_image+Nuc_projection_image);
-totalCopyNumber=mean(Rp(CellNoSpots==1))*sum(sum(totalProj)/sum(totalProj(CellSeg==1)))*sum(CellSeg(:));
+totalProj=cyto_projection_image+Nuc_projection_image;
+%sum(sum(totalProj(:))/sum(totalProj(CellSeg==1)))
+totalCopyNumber=mean(Rp)*sum(CellSeg(:))*sum(sum(totalProj(:))/sum(totalProj(CellSeg==1)));
 
  N_cyto_pool=totalCopyNumber*(N_cyto_poolTemp/(N_cyto_poolTemp+N_nuc_poolTemp));
   N_nuc_pool=totalCopyNumber*(N_nuc_poolTemp/(N_cyto_poolTemp+N_nuc_poolTemp));
