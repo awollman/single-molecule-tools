@@ -12,3 +12,9 @@ Generate a measured or simulated PSF. This [code](https://uk.mathworks.com/matla
 [This folder](../Image Simulation/3Dshapes) contains many functions for simulating shapes like spheres, shells and cylinders and combining them to create more complicated shapes like rod shaped bacterial cells.
 
 ## Single compartment copy number
+
+See [this function](../Copy Number/CopyNumberRodCell3.m) `CopyNumberRodCell3` for an example function to obtain the copy number of rod shaped cells like *E.coli* or *B.subtilus*
+
+## Multi compartment copy number
+
+See [this function](../Copy Number/CopyNumberSphereCell.m) `CopyNumberRodSphereCell` for an example function to obtain the copy number of cells with multiple compartments. In this case, a spherical yeast cell with a spherical nuclei.
