@@ -279,7 +279,7 @@ for Ch=p.start_channel:p.end_channel
                 case 1
                     frame=image_data(:,1:round(size(image_data,2)/2-p.exclude_region),i);
                 case 2
-                    %Need to write this if needed
+                    frame=image_data(1:round(size(image_data,1)/2-p.exclude_region),:,i);
             end
             SpotsCh1=[];
         elseif Ch==2
@@ -292,7 +292,7 @@ for Ch=p.start_channel:p.end_channel
                 case 1
                     frame=image_data(:,round(size(image_data,2)/2+p.exclude_region):end,i);
                 case 2
-                    %Need to write this if needed
+                    frame=image_data(round(size(image_data,1)/2-p.exclude_region):end,:,i);
             end
             SpotsCh2=[];
         end
