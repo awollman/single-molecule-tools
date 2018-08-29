@@ -1,7 +1,7 @@
 function [stoichiometry,bleachTime]=getStoichiometry(spot, Isingle,noFrames,method,bleachTime)
 
-SpotT=spots(:,9)-mean(spots(:,12));
-SpotI=spots(:,5);
+SpotT=spot(:,9)-mean(spot(:,12));
+SpotI=spot(:,5);
 if noFrames==0
     noFramesToUse=size(spot,1);
 end
