@@ -203,6 +203,9 @@ if p.DetermineFirstFrames==1
 else
     firstLeft=1;
     firstRight=1;
+    if p.ALEX==1
+        firstRight=2;
+    end
 end
 
 %Number of frames to track
