@@ -2,7 +2,7 @@ function [stoichiometry,bleachTime]=getStoichiometry(spot, Isingle,noFramesToUse
 
 SpotT=spot(:,9)-mean(spot(:,12));
 SpotI=spot(:,5);
-if noFrames==0
+if noFramesToUse==0
     noFramesToUse=size(spot,1);
 end
 switch method
