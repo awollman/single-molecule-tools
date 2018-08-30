@@ -1,7 +1,37 @@
 function [trackArrayCh1,trackArrayCh2,SpotsCh1linked,SpotsCh2linked]=colocalisedTrackAnalyser(SpotsCh1,SpotsCh2,segmentedCell,tracksFile,cellNo,params)    
+if nargin<6
+    params.pixelSize=0.08; %pixel size in microns
+    params.frameLimitS=4; %num frames to use in stoich
+    params.frameLimitD=4; %num frames to use in diffusion
+    params.frameTime=0.005; % time between frames in seconds
+    params.Isingle=5000; %characteristic intensity of a single fluorophore
+    params.stoichMethod=1;
+    params.bleachTime=5;
+    params.showOutput=1;
+    params.frameLimitAll=10; %number of frames in include in analysis
+     params.transform=[0,0];
+    % maximum distance in pixels to link spots
+    params.d=5;
+    % maximum overlap integral to link spots
+    params.overlap=0.75;
+    
+    % set if=0 link all spots regardless of frame
+    %     if=1 link only spots in the same frame
+    %     if=2 link spots in alternate frames (for ALEX)
+    params.frameLinkMethod=1;
+    
+    % set so that spots are only assigned 1 partner
+    params.Unique=1;
+    
+    %set to display graphs
+    params.showOutput=1;
+end
+
+SpotsCh2(:,1)=SpotsCh2(:,1)+params.transform(1);
+SpotsCh2(:,2)=SpotsCh2(:,2)+params.transform(2);
 [trackArrayCh1,spotsInTracksCh1]=trackAnalyser(SpotsCh1,segmentedCell,tracksFile,cellNo,params);
 [trackArrayCh2,spotsInTracksCh2]=trackAnalyser(SpotsCh2,segmentedCell,tracksFile,cellNo,params);
-
+params.transform=[0,0]; %need to reset this so Colocaliser2 does not also transform coords
 [SpotsCh1linked, SpotsCh2linked]=Colocaliser2(spotsInTracksCh1,spotsInTracksCh2,params);
  % this is section is a loop for now, possible with arrays but
             % difficult, safer to stick to loop for now

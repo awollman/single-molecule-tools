@@ -12,6 +12,7 @@ nDiffPoints=4; %number of MSD points to calculate diffusion const
 frameTime=0.005; %seconds
 pixelSize=0.120; %um
 PSFwidth=0.160/pixelSize; %sigma of a Gaussian, ~2/3 airy disk diameter
+saveImage=1;
 fileName='tdiffusingSpots.tif';
 %make a spot array the same size as normal
 spotsReal=zeros(noSpots*noFrames,12);
@@ -57,10 +58,12 @@ for t=1:noFrames
     GaussFrame(:,:,t)=imnoise(uint16(GaussFrame(:,:,t)),'poisson');
     %add Gaussian noise to simulate background camera noise
     GaussFrame(:,:,t)=GaussFrame(:,:,t)+normrnd(BGmean,BGstd,size(GaussFrame(:,:,t)));
-    if t==1
-        imwrite(uint16(GaussFrame(:,:,t)),fileName)
-    else
-        imwrite(uint16(GaussFrame(:,:,t)),fileName,'WriteMode','append')
+    if saveImage==1
+        if t==1
+            imwrite(uint16(GaussFrame(:,:,t)),fileName)
+        else
+            imwrite(uint16(GaussFrame(:,:,t)),fileName,'WriteMode','append')
+        end
     end
 end
 %% Track

@@ -1,4 +1,4 @@
-function [stoichiometry,bleachTime]=getStoichiometry(spot, Isingle,noFrames,method,bleachTime)
+function [stoichiometry,bleachTime]=getStoichiometry(spot, Isingle,noFramesToUse,method,bleachTime)
 
 SpotT=spot(:,9)-mean(spot(:,12));
 SpotI=spot(:,5);
