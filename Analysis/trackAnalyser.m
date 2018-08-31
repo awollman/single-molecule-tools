@@ -11,9 +11,9 @@ if nargin<5
     params.frameLimitD=4; %num frames to use in diffusion
     params.frameTime=0.005; % time between frames in seconds
     params.Isingle=5000; %characteristic intensity of a single fluorophore
-    params.stoichMethod=1;
-    params.bleachTime=5;
-    params.showOutput=1;
+    params.stoichMethod=1; %method for calculating stoichiomtry, see getStoichiometry
+    params.bleachTime=5; %required for some stoich methods
+    params.showOutput=1; %makes plots of each cell
     params.frameLimitAll=10; %number of frames in include in analysis
 end
 
@@ -50,7 +50,7 @@ for trajInd=1:length(trajNo)
             SpotSX=spots(spots(:,10)==t,7);
             SpotSY=spots(spots(:,10)==t,6);
             trackArray(trackNo,1)=cellNo;
-            
+            %stoichiometry
             [trackArray(trackNo,2),bleachTime]=getStoichiometry(spots(spots(:,10)==t,:), Isingle,frameLimitS,stoichMethod,bleachTime);
             %diffusion coefficient
             [trackArray(trackNo,3),MSD,tau,LocPrecision]=getDiffusion3(spots(spots(:,10)==t,:),frameTime,pixelSize,frameLimitD);
@@ -77,6 +77,7 @@ for trajInd=1:length(trajNo)
 end
 
 if params.showOutput==1
+    try
     subplot(2,3,3)
 [counts,x]=ksdensity(trackArray(:,2));
 plot(x,counts)
@@ -100,6 +101,9 @@ histogram(counts(counts>0),'binwidth',1)
 xlabel('Track length (frames)')
 ylabel('Frequency')
 legend('All spots','Spots in cell and frame limit')
+    catch
+        disp('Plotting error')
+    end
 end
 
 

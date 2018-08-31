@@ -4,12 +4,13 @@ if nargin<6
     params.frameLimitS=4; %num frames to use in stoich
     params.frameLimitD=4; %num frames to use in diffusion
     params.frameTime=0.005; % time between frames in seconds
-    params.Isingle=5000; %characteristic intensity of a single fluorophore
-    params.stoichMethod=1;
-    params.bleachTime=5;
-    params.showOutput=1;
+    params.IsingleG=5000; %characteristic intensity of a single fluorophore
+        params.IsingleR=5000; %characteristic intensity of a single fluorophore
+    params.stoichMethod=1; %method for calculating stoichiomtry, see getStoichiometry
+    params.bleachTime=5; %required for some stoich methods
+    params.showOutput=1; %makes plots of each cell
     params.frameLimitAll=10; %number of frames in include in analysis
-     params.transform=[0,0];
+     params.transform=[0,0]; %alignment between channels
     % maximum distance in pixels to link spots
     params.d=5;
     % maximum overlap integral to link spots
@@ -29,7 +30,9 @@ end
 
 SpotsCh2(:,1)=SpotsCh2(:,1)+params.transform(1);
 SpotsCh2(:,2)=SpotsCh2(:,2)+params.transform(2);
+params.Isingle=params.IsingleG;
 [trackArrayCh1,spotsInTracksCh1]=trackAnalyser(SpotsCh1,segmentedCell,tracksFile,cellNo,params);
+params.Isingle=params.IsingleR;
 [trackArrayCh2,spotsInTracksCh2]=trackAnalyser(SpotsCh2,segmentedCell,tracksFile,cellNo,params);
 params.transform=[0,0]; %need to reset this so Colocaliser2 does not also transform coords
 [SpotsCh1linked, SpotsCh2linked]=Colocaliser2(spotsInTracksCh1,spotsInTracksCh2,params);

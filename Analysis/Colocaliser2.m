@@ -91,7 +91,10 @@ if params.showOutput==1
     subplot(1,3,1)
     scatter(SpotsCh1linked(SpotsCh1linked(:,14)>params.overlap,1),SpotsCh1linked(SpotsCh1linked(:,14)>params.overlap,2),'g')
     hold on
-    scatter(SpotsCh2linked(SpotsCh2linked(:,14)>params.overlap,1),SpotsCh2linked(SpotsCh2linked(:,14)>params.overlap,2),'r')
+    scatter(SpotsCh2linked(SpotsCh2linked(:,14)>params.overlap,1),SpotsCh2linked(SpotsCh2linked(:,14)>params.overlap,2),'r')   
+    scatter(SpotsCh1linked(SpotsCh1linked(:,14)<params.overlap,1),SpotsCh1linked(SpotsCh1linked(:,14)<params.overlap,2),'gx')
+    scatter(SpotsCh2linked(SpotsCh2linked(:,14)<params.overlap,1),SpotsCh2linked(SpotsCh2linked(:,14)<params.overlap,2),'rx')
+    
     xlabel('n (pixels)')
     ylabel('m (pixels)')
     title('scatter co-localised co-ordinates')
@@ -117,8 +120,8 @@ if params.showOutput==1
         GaussFrame=GaussFrame+(Intensity_rec./(2.*pi.*SpotsCh1linked(t,6).*SpotsCh1linked(t,7)))*exp(-(((Xpos-ScaleFactor*SpotsCh1linked(t,1)).^2)./(2.*SpotsCh1linked(t,6)^2)+((Ypos-ScaleFactor*SpotsCh1linked(t,2)).^2)./(2.*SpotsCh1linked(t,7)^2)));
     end
     
-    spotInd=find(SpotsCh2linked(:,14)>params.overlap);
-    for p=1:length(find(SpotsCh2linked(:,14)>params.overlap))
+    spotInd=find(SpotsCh2linked(:,14)>-1);
+    for p=1:length(find(SpotsCh2linked(:,14)>-1))
         t=spotInd(p);
         Intensity_rec=SpotsCh2linked(t,5);
         GaussFrame2=GaussFrame2+(Intensity_rec./(2.*pi.*SpotsCh2linked(t,6).*SpotsCh2linked(t,7)))*exp(-(((Xpos-ScaleFactor*SpotsCh2linked(t,1)).^2)./(2.*SpotsCh2linked(t,6)^2)+((Ypos-ScaleFactor*SpotsCh2linked(t,2)).^2)./(2.*SpotsCh2linked(t,7)^2)));
