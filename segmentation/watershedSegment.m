@@ -30,8 +30,8 @@ L_cells = watershed(I_mod);
 if range(range(L_cells))>0
     NewMaskTemp=zeros(size(ImageFrame,1),size(ImageFrame,2),max(L_cells(:))-1);
     
-    for lbl = 1:max(L_cells(:))
-        NewMaskTemp(:,:,lbl) = L_cells==lbl;
+    for lbl = 2:max(L_cells(:))
+        NewMaskTemp(:,:,lbl-1) = L_cells==lbl;
     end
     NewMask=NewMaskTemp;
 else
