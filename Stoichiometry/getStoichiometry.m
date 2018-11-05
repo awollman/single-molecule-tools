@@ -12,8 +12,20 @@ switch method
         stoichiometry=mean(SpotI(1:noFramesToUse));
     case 3 %Linear intensity extrapolation
         % determine stoichiometry by fitting a line and using intercept
-        pfit=polyfit(SpotT(1:noFramesToUse)-1,SpotI(1:noFramesToUse),1); %%REPLACE WITH CONSTRAINED FIT
-        stoichiometry=pfit(2);
+        [xData, yData] = prepareCurveData( SpotT(1:noFramesToUse), SpotI(1:noFramesToUse) );
+        % Set up fittype and options.
+        ft = fittype( 'poly1' );
+        opts = fitoptions( 'Method', 'LinearLeastSquares' );
+        opts.Lower = [-Inf spot(1,5)/2];
+        opts.Upper = [0 Inf];
+        
+        [fitresult, gof] = fit( xData, yData, ft, opts );
+        
+        fitCoeffs=coeffvalues(fitresult);
+        stoichiometry=fitCoeffs(2);
+        bleachTime=fitCoeffs(1);
+        %         pfit=polyfit(SpotT(1:noFramesToUse)-1,SpotI(1:noFramesToUse),1); %%REPLACE WITH CONSTRAINED FIT
+        %         stoichiometry=pfit(2);
     case 4 %Exponential intensity extrapolation fixed bleach time
         stoichiometry=SpotI(1:noFramesToUse)\exp(-SpotT(1:noFramesToUse)/bleachTime);
     case 5 %Exponential intensity extrapolation fitted bleach time

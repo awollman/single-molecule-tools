@@ -64,8 +64,10 @@ for trajInd=1:length(trajNo)
             spotsInTracks=cat(1,spotsInTracks,spotsInCell);
             
             if params.showOutput==1
+                
                 subplot(2,3,1)
                 plot(SpotX,SpotY)
+                title(strcat('Cell number= ',num2str(cellNo)))
                 subplot(2,3,2)
                 plot(spots(spots(:,10)==t,9),spots(spots(:,10)==t,5)/params.Isingle)
                 hold on
