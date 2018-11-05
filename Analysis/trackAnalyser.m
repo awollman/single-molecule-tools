@@ -1,5 +1,5 @@
 
-function [trackArray,spotsInTracks]=trackAnalyser(spots,segmentedCell,tracksFile,cellNo,params)
+function [trackArray,spotsInTracks]=trackAnalyser(spots,segmentation,tracksFile,cellNo,params)
 %% function trackAnalyser
 % does what you'd think, pulls any numbers from string in tracksFile and
 % puts in column 7 of the array
@@ -25,6 +25,13 @@ Isingle=params.Isingle;
 stoichMethod=params.stoichMethod;
 bleachTime=params.bleachTime;
 spotsInTracks=[];
+
+if size(segmentation,3)==1
+    
+segmentedCell=segmentation;
+else
+    segmentedCell=segmentation(:,:,1);
+end
 
 spots(spots(:,10)==0,:)=[];
 trackArray=[];

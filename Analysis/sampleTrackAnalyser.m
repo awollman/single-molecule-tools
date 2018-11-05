@@ -14,11 +14,11 @@
 %% loop over data
 sampleDir=uigetdir;
 cd(sampleDir)
-folderDir=dir('*Video*');
+folderDir=dir('*cell*');
 cellNo=1;
 trackArray=[];
 allSpots=[];
-for c=1%:length(folderDir)
+for c=1:length(folderDir)
     cd(folderDir(c).name)
     
     % look for files containging key words and load them in
