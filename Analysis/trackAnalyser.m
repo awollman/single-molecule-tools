@@ -74,16 +74,26 @@ for trajInd=1:length(trajNo)
             trackArray(trackNo,8:11)=0; % these will be assigned later with colocalisation info
             trackArray(trackNo,12)=min(spots(spots(:,10)==t,9)); %first frame of track
             trackArray(trackNo,13)=max(spots(spots(:,10)==t,9)); %last frame of track
-
-            if size(segmentation,3)==1
                 trackArray(trackNo,14)=0;
+                        trackArray(trackNo,15)=0;
+            if size(segmentation,3)==1
+
             else
+               
                 for s=1:size(segmentation,3)-1
+                    clear compCoord
                     [compCoord(:,2), compCoord(:,1)]=find(segmentation(:,:,s+1));
                     spotInd2=ismember(round(spots(spots(:,10)==t,1:2)),compCoord,'rows');
                     if sum(spotInd2)>0
                         trackArray(trackNo,14)=s;
                         trackArray(trackNo,15)=sum(spotInd2)/sum(spots(:,10)==t);
+                        if sum(spotInd2(1:floor(end/2)))/sum(spotInd2(ceil(end/2):end))
+                            % positive if starts in compartment
+                        trackArray(trackNo,15)=trackArray(trackNo,15)*1;
+                        else
+                            % negative if starts outside compartment
+                        trackArray(trackNo,15)=trackArray(trackNo,15)*-1;
+                        end
                     end
                 end
             end
