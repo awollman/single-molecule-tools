@@ -26,20 +26,25 @@ stoichMethod=params.stoichMethod;
 bleachTime=params.bleachTime;
 spotsInTracks=[];
 
-if size(segmentation,3)==1
-    
-segmentedCell=segmentation;
-else
-    segmentedCell=segmentation(:,:,1);
-end
+
 
 spots(spots(:,10)==0,:)=[];
 trackArray=[];
 if params.showOutput==1
     figure;
     subplot(2,3,1)
-    imshow(segmentedCell,[])
+    imshow(sum(segmentation,3),[])
     hold on
+end
+
+if size(segmentation,3)==1
+    
+segmentedCell=segmentation;
+else
+    segmentedCell=segmentation(:,:,1);
+for s=1:size(segmentation,3)-1
+            rp=regionprops(segmentation(:,:,s+1),'centroid');
+        text(rp.Centroid(1), rp.Centroid(2),num2str(s),'color','red')
 end
 
 [cellCoord(:,2), cellCoord(:,1)]=find(segmentedCell);
@@ -67,6 +72,21 @@ for trajInd=1:length(trajNo)
             trackArray(trackNo,6)=t; %trajectory number
             trackArray(trackNo,7)= str2num(tracksFile(regexp(tracksFile,'\d')));
             trackArray(trackNo,8:11)=0; % these will be assigned later with colocalisation info
+            trackArray(trackNo,12)=min(spots(spots(:,10)==t,9)); %first frame of track
+            trackArray(trackNo,13)=max(spots(spots(:,10)==t,9)); %last frame of track
+
+            if size(segmentation,3)==1
+                trackArray(trackNo,14)=0;
+            else
+                for s=1:size(segmentation,3)-1
+                    [compCoord(:,2), compCoord(:,1)]=find(segmentation(:,:,s+1));
+                    spotInd2=ismember(round(spots(spots(:,10)==t,1:2)),compCoord,'rows');
+                    if sum(spotInd2)>0
+                        trackArray(trackNo,14)=s;
+                        trackArray(trackNo,15)=sum(spotInd2)/sum(spots(:,10)==t);
+                    end
+                end
+            end
             spotsInCell=spots(spots(:,10)==t,:);
             spotsInTracks=cat(1,spotsInTracks,spotsInCell);
             
