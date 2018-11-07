@@ -10,4 +10,4 @@ Outputs: trackArray containing stoichiometry, diffusion coefficient etc. and the
 Inputs: spot arrays, segmentation mask for one cell, image file name, cell number and a parameter structure
 Outputs: trackArrays containing stoichiometry, diffusion coefficient etc. and the corresponding spots
 
-`sampleTrackAnalyser` and `sample2CTrackAnalyser` show you how to loop the previous functions over whole data sets and then plot things with `masterPlot`
+`sampleTrackAnalyser` , `sample2CTrackAnalyser` and `sampleMCTrackAnalyser`show you how to loop the previous functions over whole data sets and then plot things with `masterPlot`in single, multi channel and multi compartment data.
