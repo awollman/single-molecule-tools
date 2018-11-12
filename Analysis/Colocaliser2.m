@@ -6,7 +6,6 @@
 %column 15=trajectory number of linked spot in other channel
 
 function [SpotsCh1linked, SpotsCh2linked]=Colocaliser2(SpotsCh1,SpotsCh2,params)
-
 %% define parameters
 % params.transform=[0,0];
 if nargin<3
