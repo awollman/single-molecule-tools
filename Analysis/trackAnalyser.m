@@ -39,12 +39,13 @@ end
 
 if size(segmentation,3)==1
     
-segmentedCell=segmentation;
+    segmentedCell=segmentation;
 else
     segmentedCell=segmentation(:,:,1);
-for s=1:size(segmentation,3)-1
-            rp=regionprops(segmentation(:,:,s+1),'centroid');
+    for s=1:size(segmentation,3)-1
+        rp=regionprops(segmentation(:,:,s+1),'centroid');
         text(rp.Centroid(1), rp.Centroid(2),num2str(s),'color','red')
+    end
 end
 
 [cellCoord(:,2), cellCoord(:,1)]=find(segmentedCell);

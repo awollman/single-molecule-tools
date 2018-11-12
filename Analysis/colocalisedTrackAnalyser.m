@@ -35,7 +35,10 @@ params.Isingle=params.IsingleG;
 params.Isingle=params.IsingleR;
 [trackArrayCh2,spotsInTracksCh2]=trackAnalyser(SpotsCh2,segmentedCell,tracksFile,cellNo,params);
 params.transform=[0,0]; %need to reset this so Colocaliser2 does not also transform coords
+if ~isempty(spotsInTracksCh1) && ~isempty(spotsInTracksCh2)
 [SpotsCh1linked, SpotsCh2linked]=Colocaliser2(spotsInTracksCh1,spotsInTracksCh2,params);
+
+    
  % this is section is a loop for now, possible with arrays but
             % difficult, safer to stick to loop for now
             [ch1Traj,ch1Ind]=unique(SpotsCh1linked(SpotsCh1linked(:,14)>0,10)); % linked trajectories in ch1
@@ -58,4 +61,9 @@ params.transform=[0,0]; %need to reset this so Colocaliser2 does not also transf
                 
                 trackArrayCh2(trackArrayCh2(:,7)==trackArrayCh2(end,7) & trackArrayCh2(:,6)==ch2Traj(tr),11)=mean(SpotsCh1linked(SpotsCh1linked(:,10)==ch1Traj(tr) & SpotsCh1linked(:,15)==ch2Traj(tr),16));
             end
+else
+    SpotsCh1linked=SpotsCh1;
+    SpotsCh2linked=SpotsCh2;
+    
+end
 end
