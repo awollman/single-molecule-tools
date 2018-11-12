@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 function [trackArray,spotsInTracks]=trackAnalyser(spots,segmentation,tracksFile,cellNo,params)
 %% function trackAnalyser
 % does what you'd think, pulls any numbers from string in tracksFile and
@@ -301,6 +299,3 @@ end
 
 
 end
-
-
->>>>>>> 8b04fc8c742fdcd66cf911684c8409234b99cddf
