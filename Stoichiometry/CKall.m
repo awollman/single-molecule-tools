@@ -1,3 +1,8 @@
+%% Runs a Chung-Kennedy filter over the data
+% See ckfitb2original for full details
+% Set bandwidth to roughly the on-time of a fluorophores
+% weightval is between 1-100, start at 50
+
 function filteredI=CKall(spots,bandwidth,weightVal,showOutput)
 
 for q=1:max(spots(:,10))
