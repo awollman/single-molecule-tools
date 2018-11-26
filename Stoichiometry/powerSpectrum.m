@@ -1,3 +1,8 @@
+% Calculates the pairwise distance distribution and 
+% power spectrum of data 'filteredI' which is usually CK
+% filtered intensity data
+% stepSize is the size of the bins in the pairwise distance histogram
+
 function [Istep_axis, power_spectrum]=powerSpectrum(filteredI,stepSize, showOutput)
 PwD=pdist(filteredI);
 counts=histcounts(PwD,0:stepSize:max(PwD));
