@@ -1,3 +1,4 @@
+
 function [trackArray,spotsInTracks]=trackAnalyser(spots,segmentation,tracksFile,cellNo,params)
 %% function trackAnalyser
 % does what you'd think, pulls any numbers from string in tracksFile and
