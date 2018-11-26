@@ -1,4 +1,4 @@
-function spotsBaseline=overTracker(SpotsCh1, imageData, noBaseFrames)
+function spotsBaseline=overTracker(SpotsCh1, imageData, noBaseFrames,p)
 
 subarray_halfwidth = p.subarray_halfwidth; % (Default: 8 pixels). Halfwidth of image square subarray
 % ROI, typically a square of size 17x17 pixels.
