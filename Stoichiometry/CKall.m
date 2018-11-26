@@ -4,7 +4,7 @@
 % weightval is between 1-100, start at 50
 
 function filteredI=CKall(spots,bandwidth,weightVal,showOutput)
-
+AllXX=[];
 for q=1:max(spots(:,10))
     lengthSpot=size(spots(spots(:,10)==q,9),1);
     SpotI=spots(spots(:,10)==q,5);
