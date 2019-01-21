@@ -115,8 +115,8 @@ maxColor=5;
             
             %no spots/cell
             subplot(2,4,5)
-            [counts,x]=histcounts(trackArray(:,1));
-            histogram(counts,'FaceColor',cmap(round(64*(colorInd)/maxColor),:));
+            [counts,x]=histcounts(trackArray(:,1),'binwidth',1);
+            histogram(counts,'binwidth',1,'FaceColor',cmap(round(64*(colorInd)/maxColor),:));
             xlabel('Number of trajectories/cell')
             ylabel('Frequency')
             hold on

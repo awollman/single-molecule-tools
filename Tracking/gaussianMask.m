@@ -149,7 +149,7 @@ while (error1>error_set || k<11) && clipping_flag==0 % at least 10 iterations. M
             if round(sqrt(sum_sq))<=inner_radius 
                 inner_mask(ii,jj)=1; 
             else
-                inner_mask(ii,jj)=0; 
+                inner_mask(ii,jj)=0; %% GET RID OF THIS
             end
             % gaussian mask:
             mask_gauss(ii,jj) = exp(-sum_sq/(2*sigma_gauss^2)); 
