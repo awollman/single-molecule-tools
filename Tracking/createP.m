@@ -59,6 +59,8 @@ p.noFrames=5; % number of frames to average over, starting from start_frame. (de
     p.all=1; %Use this keyword to load entire image file
     p.startFrame=1; % Or specify start and end frames
     p.endFrame=999;
+      p.firstLeft=2; %If determine first frames=0 these are used
+    p.firstRight=1;
     
     %Specify how many frames to track after the laser has switched on
     p.FramesToTrack=0;
