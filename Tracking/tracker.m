@@ -1,45 +1,31 @@
 function [SpotsCh1, SpotsCh2, frame_average,p, meta_data, image_data,spotImages] = tracker(fileName,p)
 
-%%
-% NEW in 2.84
-% checks for saturated frames
-% NEW IN 2.81
-% Rsquare of 2D gaussian fits;
-% !!!!!!!RSQUARE REPLACES CLIPPING FLAG IN SPOT ARRAY!!!!!!!!!
-% NEW IN 2.5
-% can fit a fully rotating Gaussian using GaussSwitch=3;
-% !!!!!!!THETA REPLACES CLIPPING FLAG IN SPOT ARRAY!!!!!!!!!
-% NEW IN 2.4
-% - choose to run in parallel or not by setting p.useParallel=1;
-%- >2x speed improvements from optomisation in linking trajectories and
-%removing coincident ones
-%-2 levels of output set with show_output and show_all_output
-% NEW IN 2.0
-% -set useBioFormats to open ANY IMAGE FORMAT and extract metadata
-% NB need file extention for this mode
-% NB EXCEPT SIF FILES?!
-% -removes candidates which are too close together to produce distinct
-% spots, saves time
-% -new iterative Gaussian masking to determine PSFwidth but only 1D, gives
-% ~8x speed increase, set GaussSwitch=1 for this or =2 for full 2D fitting
-
-% NEW IN 1.3
-% ExtractImageSequence3 can now read in ascii data
-% NEW IN 1.2
-% ExtractImageSequence2 can now read in folders of tifs (BUGGY, NEED TO
-% FIX)
-% If FramesToTrack==0, then code tracks all frames available
-
-%%
-
-% Final code for opening tif data, calculating frame average, using this to determine
-%cell boundary, then looping over user defined frames, finding spots,
-%identifying their centres and accepting them if they meet criteria, then
-%linking these spots together into trajectories
-
-%readData=1 if reading tif file or 0 if already loaded
-
-    %
+% Code for tracking bright foci in image stacks
+%INPUTS
+%filename: name of image stack or folder containing series of tifs
+%p: parameter structure (see below for details) if not set default values
+%used
+%OUTPUTs
+% SpotsCh1/2 is an array, each row contains the information for a spot found in an image frame in the series. The columns contain the following information:
+% 
+% 1. X coordinate (pixels)
+% 2. Y coordinate (pixels)
+% 3. Clipping_flag (a switch, please ignore)
+% 4. Mean local background pixel intensity
+% 5. Total spot intensity, background corrected
+% 6. X spot sigma width
+% 7. Y spot sigma width
+% 8. Spot central intensity (peak intensity in a fitted Gaussian)
+% 9. Frame number the spot was found in
+% 10. Trajectory number, spots in the same trajectory have the same trajectory number
+% 11. Signal to noise ratio
+% 12. Frame in which laser exposure began
+% 
+%frame_average: frame average image
+%p: output parameters
+% meta_data: any meta_data stored in the image
+%image_data: the raw imaging data tracked
+% spotImages: every spot tracked - NOT RECOMMENDED TO USE
 
 if exist('p','var')==1
     %Read in parameters
