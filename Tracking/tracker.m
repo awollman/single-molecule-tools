@@ -1,4 +1,4 @@
-function [SpotsCh1, SpotsCh2, frame_average,p, meta_data, image_data,spotImages] = tracker(fileName,p)
+function [SpotsCh1, SpotsCh2, frame_average,p, meta_data, image_data] = tracker(fileName,p)
 
 % Code for tracking bright foci in image stacks
 %INPUTS
@@ -225,7 +225,7 @@ end
 for Ch=p.start_channel:p.end_channel
     % Initialise spot array
     spots=[];
-    spotImages=[];
+  %  spotImages=[];
     
     
     if p.ALEX==0
@@ -407,10 +407,44 @@ for Ch=p.start_channel:p.end_channel
             % get rid of identical spots, within ~d_min of each other
             
             if isempty(spots_temp)==0
-                [~,ia,~]=uniquetol(spots_temp(:,1)+spots_temp(:,2),p.d_min/max(spots_temp(:,1)+spots_temp(:,2)));
+                            if p.show_output==1
+                imshow(frame,[],'InitialMagnification','fit')%HM modify magnification
+                hold on
+                title('Found elipses on original image before conincidents removed')
+                %    plot(spots(spots(:,9)==i,1),spots(spots(:,9)==i,2), 'o')
+                %Plot elipses on original image
+                if p.GaussSwitch==3
+                    h=ellipse(spots_temp(spots_temp(:,9)==i,6),spots_temp(spots_temp(:,9)==i,7),spots_temp(spots_temp(:,9)==i,3),spots_temp(spots_temp(:,9)==i,1),spots_temp(spots_temp(:,9)==i,2),'b');
+                    for k=min(find(spots_temp(:,9)==i)):max(find(spots_temp(:,9)==i))
+                        text(spots_temp(k,1)+3,spots_temp(k,2)+3,num2str(k),'color','b')
+                        % rectangle('Position',[spots(k,1)-spots(k,6)/2,spots(k,2)-spots(k,7)/2,spots(k,6),spots(k,7)],'Curvature',[1,1],'EdgeColor','b')
+                        %rectangle('Position',[spots(k,1)-spots(k,6),spots(k,2)-spots(k,7),spots(k,6)*2,spots(k,7)*2],'Curvature',[1,1],'EdgeColor','b')
+                    end
+                else
+                    for k=min(find(spots_temp(:,9)==i)):max(find(spots_temp(:,9)==i))
+                        text(spots_temp(k,1)+3,spots_temp(k,2)+3,num2str(k),'color','b')
+                        % rectangle('Position',[spots(k,1)-spots(k,6)/2,spots(k,2)-spots(k,7)/2,spots(k,6),spots(k,7)],'Curvature',[1,1],'EdgeColor','b')
+                        rectangle('Position',[spots_temp(k,1)-spots_temp(k,6),spots_temp(k,2)-spots_temp(k,7),spots_temp(k,6)*2,spots_temp(k,7)*2],'Curvature',[1,1],'EdgeColor','b')
+                    end
+                end
+                
+                hold off
+                pause
+            end
+                
+                
+           %     [~,ia,~]=uniquetol(spots_temp(:,1)+spots_temp(:,2),p.d_min/max(spots_temp(:,1)+spots_temp(:,2)));
+        if p.d_min>0
+                [spots_temp2,ia]=MergeCoincidentSpots4(spots_temp, p.d_min);
+            else
+                spots_temp2=spots_temp;
+                ia=1:size(spots_temp,1);
+            end
+         % [~,ia,~]=uniquetol(spots_temp(:,1)+spots_temp(:,2),p.d_min);
+
               %  [~,ia,~]=unique(spots_temp(:,1)+spots_temp(:,2));
        %       try
-                spots_temp2=spots_temp(ia,:);
+             %   spots_temp2=spots_temp(ia,:);
 %               catch
 %                   spots_temp(ia,:)
 %                   spots_temp
@@ -422,13 +456,13 @@ for Ch=p.start_channel:p.end_channel
             
             % wipe the stored spot image array if spotImageSave=0 to save
             % memory
-            if p.spotImageSave==0
-                spotImageTemp2=[];
-            end
+%             if p.spotImageSave==0
+%                 spotImageTemp2=[];
+%             end
             
             if exist('spots_temp2')
             spots=cat(1,spots,spots_temp2);
-            spotImages=cat(3,spotImages,spotImageTemp2);
+           % spotImages=cat(3,spotImages,spotImageTemp2);
             end
         else %use a regular for loop
             for j=1:size(x_estimate,1)
@@ -479,20 +513,51 @@ for Ch=p.start_channel:p.end_channel
 
             spots_temp(spots_temp(:,1)==0,:)=[]; %HM, gets rid of empty rows
             % get rid of identical spots, within ~d_min of each other
-            
             if isempty(spots_temp)==0
-                [~,ia,~]=uniquetol(spots_temp(:,1)+spots_temp(:,2),p.d_min/max(spots_temp(:,1)+spots_temp(:,2)));
-                spots_temp2=spots_temp(ia,:);
+            if p.show_output==1
+                imshow(frame,[],'InitialMagnification','fit')%HM modify magnification
+                hold on
+                title('Found elipses on original image before conincidents removed')
+                %    plot(spots(spots(:,9)==i,1),spots(spots(:,9)==i,2), 'o')
+                %Plot elipses on original image
+                if p.GaussSwitch==3
+                    h=ellipse(spots_temp(spots_temp(:,9)==i,6),spots_temp(spots_temp(:,9)==i,7),spots_temp(spots_temp(:,9)==i,3),spots_temp(spots_temp(:,9)==i,1),spots_temp(spots_temp(:,9)==i,2),'b');
+                    for k=min(find(spots_temp(:,9)==i)):max(find(spots_temp(:,9)==i))
+                        text(spots_temp(k,1)+3,spots_temp(k,2)+3,num2str(k),'color','b')
+                        % rectangle('Position',[spots(k,1)-spots(k,6)/2,spots(k,2)-spots(k,7)/2,spots(k,6),spots(k,7)],'Curvature',[1,1],'EdgeColor','b')
+                        %rectangle('Position',[spots(k,1)-spots(k,6),spots(k,2)-spots(k,7),spots(k,6)*2,spots(k,7)*2],'Curvature',[1,1],'EdgeColor','b')
+                    end
+                else
+                    for k=min(find(spots_temp(:,9)==i)):max(find(spots_temp(:,9)==i))
+                        text(spots_temp(k,1)+3,spots_temp(k,2)+3,num2str(k),'color','b')
+                        % rectangle('Position',[spots(k,1)-spots(k,6)/2,spots(k,2)-spots(k,7)/2,spots(k,6),spots(k,7)],'Curvature',[1,1],'EdgeColor','b')
+                        rectangle('Position',[spots_temp(k,1)-spots_temp(k,6),spots_temp(k,2)-spots_temp(k,7),spots_temp(k,6)*2,spots_temp(k,7)*2],'Curvature',[1,1],'EdgeColor','b')
+                    end
+                end
+                
+                hold off
+                pause
+            end
+            
+            
+            %    [~,ia,~]=uniquetol(spots_temp(:,1)+spots_temp(:,2),p.d_min/max(spots_temp(:,1)+spots_temp(:,2)));
+            if p.d_min>0
+                [spots_temp2,ia]=MergeCoincidentSpots4(spots_temp, p.d_min);
+            else
+                spots_temp2=spots_temp;
+                ia=1:size(spots_temp,1);
+            end
+            %    spots_temp2=spots_temp(ia,:);
                 spotImageTemp2=spotImageTemp(:,:,ia);
             end
             
-          if p.spotImageSave==0
-                spotImageTemp2=[];
-            end
+%           if p.spotImageSave==0
+%                 spotImageTemp2=[];
+%             end
             
             if exist('spots_temp2')
             spots=cat(1,spots,spots_temp2);
-              spotImages=cat(3,spotImages,spotImageTemp2);
+           %   spotImages=cat(3,spotImages,spotImageTemp2);
             end
         end
         
