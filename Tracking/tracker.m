@@ -359,7 +359,7 @@ for Ch=p.start_channel:p.end_channel
         %% FIT TO SPOTS AND REJECT
         %Loop over all found spots
         spots_temp=zeros(size(x_estimate,1),12);
-        spotImageTemp=zeros(p.subarray_halfwidth*2+1,p.subarray_halfwidth*2+1,size(x_estimate,1));
+        %spotImageTemp=zeros(p.subarray_halfwidth*2+1,p.subarray_halfwidth*2+1,size(x_estimate,1));
         if p.useParallel==1 % use a parfor loop
             parfor j=1:size(x_estimate,1)
                 if p.use_cursor==1
@@ -396,13 +396,13 @@ for Ch=p.start_channel:p.end_channel
                         end
                         % The spot array, 10th field is trajectory number,
                         % initialised to 0
-                        spotImageTemp(:,:,j)=Idata;
+                      %  spotImageTemp(:,:,j)=Idata;
                         
                     end
                 end
                 
             end
-            spotImageTemp(:,:,spots_temp(:,1)==0)=[];
+         %   spotImageTemp(:,:,spots_temp(:,1)==0)=[];
             spots_temp(spots_temp(:,1)==0,:)=[]; 
             % get rid of identical spots, within ~d_min of each other
             
@@ -450,7 +450,7 @@ for Ch=p.start_channel:p.end_channel
 %                   spots_temp
 %               end
 
-                spotImageTemp2=spotImageTemp(:,:,ia);
+%                spotImageTemp2=spotImageTemp(:,:,ia);
 
             end
             
@@ -503,13 +503,13 @@ for Ch=p.start_channel:p.end_channel
                         % The spot array, 10th field is trajectory number,
                         % initialised to 0
                         
-                          spotImageTemp(:,:,j)=Idata;
+                         % spotImageTemp(:,:,j)=Idata;
                   %      spots_temp(j,:)=[x_centre, y_centre, clipping_flag, Ibg_avg, Isp, sdx, sdy, Icent, i,trajNo, snr1, firstLeft];
                     end
                 end
                 
             end
-            spotImageTemp(:,:,spots_temp(:,1)==0)=[];
+          %  spotImageTemp(:,:,spots_temp(:,1)==0)=[];
 
             spots_temp(spots_temp(:,1)==0,:)=[]; %HM, gets rid of empty rows
             % get rid of identical spots, within ~d_min of each other
@@ -548,7 +548,7 @@ for Ch=p.start_channel:p.end_channel
                 ia=1:size(spots_temp,1);
             end
             %    spots_temp2=spots_temp(ia,:);
-                spotImageTemp2=spotImageTemp(:,:,ia);
+           %     spotImageTemp2=spotImageTemp(:,:,ia);
             end
             
 %           if p.spotImageSave==0
