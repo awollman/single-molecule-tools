@@ -330,9 +330,10 @@ for Ch=p.start_channel:p.end_channel
                     [result2] = findSpots3(frame,2,p.disk_radius,p.gaussian,0);
                     result=result1+result2;
                     result(result>1)=1;
+                    resulthin=bwmorph(result,'thin',Inf);
             end
             % Convert those to spot co-ordinates
-            [y_estimateTemp, x_estimateTemp]=ind2sub(size(result), find(result));
+            [y_estimateTemp, x_estimateTemp]=ind2sub(size(resulthin), find(resulthin));
             %  [y_estimate, x_estimate]=ind2sub(size(result), find(result));
             % Remove candidates which are too close together to yield
             % seperate spots-

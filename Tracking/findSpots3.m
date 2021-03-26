@@ -99,7 +99,7 @@ h = fspecial('gaussian');
 GaussSignal=imfilter(Signal,h);
 %GaussSignal2 = imtophat(GaussSignal,se);
 GaussSignal2=GaussSignal;
-sigBW = im2bw(GaussSignal2,threshold_cell_auto);
+sigBW = im2bw(GaussSignal2,threshold_cell_auto(1));
 %sigBW = im2bw(GaussSignal2,graythresh(GaussSignal2));
 if output==1
    % bar(histx, histy)
